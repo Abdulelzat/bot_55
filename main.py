@@ -5,11 +5,14 @@ from handlers.other_massages import echo_router
 from handlers.start import start_router
 from handlers.myinfo import myinfo_router
 from handlers.random import randomfile
+from handlers.review_dialog import review_router
+
 
 async def main():
     dp.include_router(start_router)
     dp.include_router(myinfo_router)
     dp.include_router(randomfile)
+    dp.include_router(review_router)
     dp.include_router(echo_router)
     await dp.start_polling(bot)
 
