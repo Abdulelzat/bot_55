@@ -2,6 +2,7 @@ from aiogram import Router, F, types
 from aiogram.fsm.state import StatesGroup, State, default_state
 from aiogram.fsm.context import FSMContext
 
+from bot_config import database
 
 review_router = Router()
 
@@ -98,4 +99,9 @@ async def process_extra_comments(message: types.Message, state: FSMContext):
         f"Дополнительные комментарии: {data.get('extra_comments')}"
     )
     await message.answer(summary)
+    try:
+        database.save_survey(data)
+        await message.answer("Ваш отзыв сохранён!")
+    except Exception as e:
+        await message.answer(f"Ошибка сохранения отзыва: {e}")
     await state.clear()
